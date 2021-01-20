@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'prod url'
+  environmentName: 'qa',
+  apiUrl: 'qa url'
 };

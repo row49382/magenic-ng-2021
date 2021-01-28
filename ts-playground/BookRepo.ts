@@ -7,15 +7,15 @@ export module BookRepository {
     }
 
     export class BookRepo implements Savable<Book> {
-        constructor(private bookRepo: Array<Book>) { }
+        constructor(private books: Array<Book>) { }
 
         save(data: Book): boolean {
-            this.bookRepo.push(data);
+            this.books.push(data);
             return true;
         }
 
         getBooks() {
-            return this.bookRepo;
+            return this.books;
         }
 
     }

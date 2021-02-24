@@ -1,0 +1,41 @@
+<h1 class="header">Roll Some Dice!</h1>
+<div class="form-group">
+  <label>Username:</label>
+  <input type="text" class="form-control" [(ngModel)]="username">
+</div>
+
+<br />
+<div class="row align-items-center btn-primary-spacing" >
+  <div class="col">
+    <button class="btn-block" (click)="rollDice(20)">20</button>
+  </div>
+  <div class="col">
+    <button class="btn-block" (click)="rollDice(12)">12</button>
+  </div>
+  <div class="col">
+    <button class="btn-block" (click)="rollDice(10)">10</button>
+  </div>
+</div>
+<div class="row btn-primary-spacing">
+  <div class="col">
+    <button class="btn-block" (click)="rollDice(8)">8</button>
+  </div>
+  <div class="col">
+    <button class="btn-block" (click)="rollDice(6)">6</button>
+  </div>
+  <div class="col">
+    <button class="btn-block" (click)="rollDice(4)">4</button>
+  </div>
+</div>
+<div class="row btn-primary-spacing">
+  <div class="col"></div>
+  <div class="col">
+    <button class="btn-block" (click)="rollDice(99)">%</button>
+  </div>
+  <div class="col"></div>
+</div>
+
+<br /><br />
+<div *ngIf="currentRoll">
+  <h1 class="display">{{currentRoll}}</h1>
+</div>

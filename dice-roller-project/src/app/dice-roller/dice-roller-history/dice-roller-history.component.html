@@ -1,1 +1,35 @@
-<p>dice-roller-history works!</p>
+<br />
+<h1 class="header">View Some Dice</h1>
+<br />
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">user</th>
+    <th scope="col">20</th>
+    <th scope="col">12</th>
+    <th scope="col">10</th>
+    <th scope="col">8</th>
+    <th scope="col">6</th>
+    <th scope="col">4</th>
+    <th scope="col">100</th>
+    <th scope="col">result</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let userRolls of getRolls(); index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>
+      {{ currentUser }}
+    </td>
+    <td>{{userRolls.rolls.get('d20')}}</td>
+    <td>{{userRolls.rolls.get('d12')}}</td>
+    <td>{{userRolls.rolls.get('d10')}}</td>
+    <td>{{userRolls.rolls.get('d8')}}</td>
+    <td>{{userRolls.rolls.get('d6')}}</td>
+    <td>{{userRolls.rolls.get('d4')}}</td>
+    <td>{{userRolls.rolls.get('d100')}}</td>
+    <td>{{userRolls.rolls.get('result')}}</td>
+  </tr>
+  </tbody>
+</table>

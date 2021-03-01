@@ -1,0 +1,20 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box div {
+  width: 100px;
+  height: 100px;
+}
+
+.sidenav {
+  align-items: left;
+  justify-content: left;
+}
+
+.outline {
+  border-style: solid;
+  border-width: medium;
+}

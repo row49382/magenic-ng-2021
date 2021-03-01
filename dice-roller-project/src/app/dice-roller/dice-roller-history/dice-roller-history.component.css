@@ -1,0 +1,18 @@
+.header {
+  text-align: center;
+}
+
+.display {
+  text-align: center;
+}
+
+.flex-gap {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+/** adds margin spacing between the buttons in the flex box */
+.btn-primary-spacing {
+  margin-right: 5px;
+  margin-bottom: 5px !important;
+}

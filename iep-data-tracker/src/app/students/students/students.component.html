@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <br />
+      <h2>Students</h2>
+      <mat-list role="list" *ngFor="let studentName of getAllStudentNames()">
+        <mat-list-item role="listitem">
+          <a [routerLink]="['/student', getStudentIndex(studentName)]">
+            {{studentName}}
+          </a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="col-8">
+      <br />
+      <div *ngFor="let student of getAllStudents()">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Name: {{student.firstName}} {{ student.lastName}}</mat-card-title>
+            <mat-card-subtitle>Grade: {{student.grade}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/student', getStudentIndexById(student.id)]">EDIT</button>
+            <button mat-button (click)='deleteStudent(student.id)'>DELETE</button>
+          </mat-card-actions>
+        </mat-card>
+        <br />
+      </div>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+</div>

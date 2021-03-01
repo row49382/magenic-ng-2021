@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DiceRollerDashboardComponent } from './dice-roller-dashboard/dice-roller-dashboard.component';
 import { DiceRollerHistoryComponent } from './dice-roller-history/dice-roller-history.component';
 import { DiceRollerComponent } from './dice-roller/dice-roller.component';
 import { FormsModule } from '@angular/forms';
-
-
+import { DiceRollerOptionsComponent } from './dice-roller-options/dice-roller-options.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    DiceRollerDashboardComponent,
     DiceRollerHistoryComponent,
-    DiceRollerComponent
+    DiceRollerComponent,
+    DiceRollerOptionsComponent
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   exports: [
-    DiceRollerDashboardComponent
+    DiceRollerHistoryComponent,
+    DiceRollerComponent,
+    DiceRollerOptionsComponent
   ]
 })
 export class DiceRollerModule { }

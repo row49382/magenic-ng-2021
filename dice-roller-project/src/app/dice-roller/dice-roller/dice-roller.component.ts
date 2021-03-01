@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DiceRoller } from './dice-roller';
 import { DiceRollerService } from '../service/dice-roller.service';
 import { DiceRollerExpressionManagerService } from '../service/dice-roller-expression-manager.service';
+import { DiceRollerUserCounterService } from '../service/dice-roller-user-counter.service';
 
 @Component({
   selector: 'app-dice-roller',
@@ -10,9 +11,10 @@ import { DiceRollerExpressionManagerService } from '../service/dice-roller-expre
 })
 export class DiceRollerComponent implements OnInit, DiceRoller {
   currentRoll: number | undefined;
-  username: string | undefined;
+  username: string = '';
 
   constructor(
+    private userRollCounter: DiceRollerUserCounterService,
     private rollerService: DiceRollerService,
     private expressionManagerService: DiceRollerExpressionManagerService){ }
 
@@ -21,10 +23,8 @@ export class DiceRollerComponent implements OnInit, DiceRoller {
 
   rollDice(diceFace: number): void {
     console.log(diceFace);
-    this.expressionManagerService.addToExpression(`d${diceFace}`);
     this.currentRoll = this.rollerService.roll(diceFace);
-}
-
-
-
+    this.userRollCounter.add(this.username, `d${diceFace}`, this.currentRoll);
+    this.expressionManagerService.addToExpression(`d${diceFace}`);
+  }
 }

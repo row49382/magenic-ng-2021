@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { StudentRepositoryService } from './student-repository.service';
-import { K12Grades } from '../model/k12grades';
 import { Student } from '../model/student';
 
 @Injectable({
@@ -10,29 +9,23 @@ export class StudentManagerService {
 
   constructor(private studentRepository: StudentRepositoryService) { }
 
-  add(
-    firstName: string,
-    lastName: string,
-    grade: K12Grades,
-    studentNotes: string = '',
-    iepGoals: string = ''): void {
+  add(student: Student): void {
 
-    let canCreate = this.canCreateStudent(firstName, lastName);
+    let canCreate = this.canCreateOrUpdateStudent(student.firstName, student.lastName);
 
     if (canCreate) {
-      let student = new Student();
-      student.firstName = firstName;
-      student.lastName = lastName;
-      student.grade = grade;
-      student.studentNotes = studentNotes;
-      student.iepGoals = iepGoals;
+      let newStudent = new Student();
+      newStudent.firstName = student.firstName;
+      newStudent.lastName = student.lastName;
+      newStudent.grade = student.grade;
+      newStudent.studentNotes = student.studentNotes;
+      newStudent.iepGoals = student.iepGoals;
 
-      this.studentRepository.add(student);
+      this.studentRepository.add(newStudent);
     }
   }
 
-  delete(
-    id: number): void {
+  delete(id: number): void {
       let student = this.studentRepository.get(id);
 
       if (student) {
@@ -43,12 +36,20 @@ export class StudentManagerService {
       }
   }
 
-  update(
-    student: Student): void {
+  update(student: Student): void {
+
+    // allow update for same name,  if the id of the matched name matches the current student.
+    let canUpdate =
+      student.id === this.getAll().find(x => x.firstName === student.firstName && x.lastName === student.lastName).id ?
+        true :
+        this.canCreateOrUpdateStudent(student.firstName, student.lastName);
+
     let currStudent = this.studentRepository.get(student.id);
 
     if (currStudent) {
-      this.studentRepository.update(student);
+      if (canUpdate) {
+        this.studentRepository.update(student);
+      }
     }
     else {
       console.error(`No student found with id ${student.id}`);
@@ -70,7 +71,7 @@ export class StudentManagerService {
     return this.studentRepository.getAll();
   }
 
-  canCreateStudent(firstName: string, lastName: string): boolean {
+  canCreateOrUpdateStudent(firstName: string, lastName: string): boolean {
     let canCreate = true;
     if (this.studentRepository.getAll().find(x => x.firstName === firstName && x.lastName === lastName)) {
       console.error('can not create a new student with that name, because they already exist');
@@ -82,5 +83,13 @@ export class StudentManagerService {
     }
 
     return canCreate;
+  }
+
+  getStudentIndex(wholename: string): number {
+    let names = wholename.split(' ');
+    let firstName = names[0];
+    let lastName = names[1];
+
+    return this.getAll().findIndex(s => s.firstName === firstName && s.lastName === lastName);
   }
 }

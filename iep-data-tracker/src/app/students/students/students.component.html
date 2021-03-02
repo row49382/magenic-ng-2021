@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col">
+    <div class="col-2">
       <br />
       <h2>Students</h2>
       <mat-list role="list" *ngFor="let studentName of getAllStudentNames()">
@@ -11,12 +11,12 @@
         </mat-list-item>
       </mat-list>
     </div>
-    <div class="col-8">
+    <div class="col-9 flexcontainer">
       <br />
       <div *ngFor="let student of getAllStudents()">
         <mat-card>
           <mat-card-header>
-            <mat-card-title>Name: {{student.firstName}} {{ student.lastName}}</mat-card-title>
+            <mat-card-title>Name: {{student.firstName}} {{student.lastName}}</mat-card-title>
             <mat-card-subtitle>Grade: {{student.grade}}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-actions>
@@ -26,6 +26,9 @@
         </mat-card>
         <br />
       </div>
+      <button mat-fab class="md-button md-fab md-fab-bottom-right" color="primary">
+        +
+      </button>
     </div>
     <div class="col">
     </div>

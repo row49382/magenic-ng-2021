@@ -1,1 +1,56 @@
-<p>session-detail works!</p>
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <br />
+      <h2>Students</h2>
+    </div>
+    <div class="col-8">
+      <br />
+      <h1>Session Details</h1>
+      <br />
+      <form>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Session Name</label>
+          <div class="col">
+            <input mdbInput type="text" class="form-control" placeholder="Session Name" [value]='session.'>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Last Name</label>
+          <div class="col">
+            <input mdbInput type="text" class="form-control" placeholder="Last name" [value]='student.lastName'>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Student Grade</label>
+          <div class="col">
+            <select class="browser-default custom-select" [(ngModel)]="student.grade">
+              <option *ngFor="let grade of getGradeKeys()" value="grade.key">{{grade}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Session Notes</label>
+          <div class="col">
+            <input matInput class="form-control">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Session Notes</label>
+          <div class="col">
+            <textarea class="md-textarea form-control " rows="3" id="input_text" type="text" length="120" mdbCharCounter mdbInput></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button mat-stroked-button color="primary">Save Student</button>
+          </div>
+        </div>
+      </form>
+    <div class="col">
+    </div>
+  </div>
+</div> -->

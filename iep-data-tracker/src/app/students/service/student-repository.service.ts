@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../model/student';
 import { STUDENTS } from '../model/mock-students';
+import { CrudeRepo } from 'src/app/crud-repo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentRepositoryService {
+export class StudentRepositoryService implements CrudeRepo<Student> {
   students: Array<Student>;
 
   constructor() {
-    console.log('StudentRepositoryService students:', STUDENTS)
     this.students = STUDENTS;
-    console.log('StudentRepositoryService after set students', this.students)
   }
 
   get(id: number): Student {

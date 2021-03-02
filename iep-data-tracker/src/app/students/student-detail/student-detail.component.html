@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <br />
+      <h2>{{getTitle()}}</h2>
+      <mat-list role="list" *ngFor="let studentName of getChildren()">
+        <mat-list-item role="listitem">
+          <a [routerLink]="['/student', getStudentIndex(studentName)]">
+            {{studentName}}
+          </a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="col-8">
+      <br />
+      <h1>Student Details</h1>
+      <br />
+      <form>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">First Name</label>
+          <div class="col">
+            <input mdbInput type="text" class="form-control" placeholder="First name" [(ngModel)]='student.firstName' [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Last Name</label>
+          <div class="col">
+            <input mdbInput type="text" class="form-control" placeholder="Last name" [(ngModel)]='student.lastName' [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Student Grade</label>
+          <div class="col">
+            <select class="browser-default custom-select" class="form-control" [(ngModel)]="student.grade" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let grade of getGradeKeys()" [value]="grade">{{grade}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Student Notes</label>
+          <div class="col">
+            <textarea class="md-textarea form-control " rows="3" id="input_text" type="text" length="120" mdbCharCounter mdbInput [(ngModel)]="student.studentNotes" [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">IEP Goals</label>
+          <div class="col">
+            <textarea class="md-textarea form-control " rows="3" id="input_text" type="text" length="120" mdbCharCounter mdbInput [(ngModel)]="student.iepGoals" [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button mat-stroked-button color="primary" (click)="save()">Save Student</button>
+          </div>
+        </div>
+      </form>
+    <div class="col">
+    </div>
+  </div>
+</div>

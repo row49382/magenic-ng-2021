@@ -6,7 +6,6 @@ import { SessionModule } from './sessions/session.module';
 import { StudentModule } from './students/student.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     SessionModule,
     StudentModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    MatGridListModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

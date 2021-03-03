@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SideNavContentService } from 'src/app/side-nav-content.service';
 import { SessionsManagerService } from '../service/sessions-manager.service';
 import { Session } from '../model/session';
 import { Observable, Subscription, of } from 'rxjs';
@@ -14,9 +13,7 @@ export class SessionListComponent implements OnInit {
   sessions$: Observable<Session[]>;
   private subscriptions: Subscription[] = [];
 
-  constructor(
-    private sideNavDisplay: SideNavContentService,
-    private sessionsManager: SessionsManagerService) { }
+  constructor(private sessionsManager: SessionsManagerService) { }
 
   ngOnInit(): void {
     this.subscriptions.push(this.sessionsManager.sessions$.subscribe(x => this.sessions$ = of(x)));

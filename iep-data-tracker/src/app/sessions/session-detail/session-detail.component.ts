@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentManagerService } from 'src/app/students/service/student-manager.service';
-import { SideNavContentService } from 'src/app/side-nav-content.service';
 import { SessionsManagerService } from '../service/sessions-manager.service';
 import { ActivatedRoute } from '@angular/router';
 import { Session } from '../model/session';
@@ -15,7 +13,6 @@ export class SessionDetailComponent implements OnInit {
   private sessions: Session[];
 
   constructor(
-    private sideNavDisplay: SideNavContentService,
     private sessionsManager: SessionsManagerService,
     private route: ActivatedRoute) { }
 

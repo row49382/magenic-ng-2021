@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { SideNavContentService } from 'src/app/side-nav-content.service';
 import { StudentManagerService } from 'src/app/students/service/student-manager.service';
 import { SessionsManagerService } from 'src/app/sessions/service/sessions-manager.service';
 import { Router } from '@angular/router';
@@ -18,13 +17,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: Router,
-    private sideNavContent: SideNavContentService,
     private studentManager: StudentManagerService,
     private sessionManager: SessionsManagerService) { }
 
   ngOnInit(): void {
-    //this.subscriptions.push(this.sideNavContent.getPageChanged$.subscribe(x => this.onSideNavLoaded(x)));
-
     this.subscriptions.push(this.sessionManager.sessions$.subscribe(x => this.sideNav$ = of({
       title: 'Sessions',
       children: x.map(x => x.sessionName).sort(),

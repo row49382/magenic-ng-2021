@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Student } from '../model/student';
 import { StudentManagerService } from '../service/student-manager.service';
-import { SideNavContentService } from 'src/app/side-nav-content.service';
 import { Subscription, Observable, of } from 'rxjs';
 
 @Component({
@@ -16,8 +15,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
   private subsriptions: Array<Subscription> = [];
 
   constructor(
-    private studentManager: StudentManagerService,
-    private sideNavDisplay: SideNavContentService) { }
+    private studentManager: StudentManagerService) { }
 
   ngOnInit(): void {
     this.subsriptions.push(this.studentManager.students$.subscribe(data => this.onStudentsLoaded(data)))

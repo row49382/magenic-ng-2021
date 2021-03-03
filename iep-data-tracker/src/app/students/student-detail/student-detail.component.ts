@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { StudentManagerService } from '../service/student-manager.service';
 import { Student } from '../model/student';
 import { K12Grades } from '../model/k12grades';
-import { SideNavContentService } from 'src/app/side-nav-content.service';
 import { Subscription, Observable, of } from 'rxjs';
 
 @Component({
@@ -22,14 +21,11 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private studentManager: StudentManagerService,
-    private route: ActivatedRoute,
-    private sideNavDisplay: SideNavContentService) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.subscriptions.push(this.studentManager.students$.subscribe(x => this.students$ = of(x)));
     this.subscriptions.push(this.students$.subscribe(x => this.students = x));
-
-    this.sideNavDisplay.getSideNav('Students', this.students.map(x => x.firstName + ' ' + x.lastName), 'student');
 
     this.subscriptions.push(this.route.params.subscribe(x => {
       debugger;

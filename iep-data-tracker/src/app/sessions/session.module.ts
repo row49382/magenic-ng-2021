@@ -12,11 +12,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { CreateSessionComponent } from './create-session/create-session.component';
+import { FormsModule } from '@angular/forms';
+import { SessionFormComponent } from './session-form/session-form.component';
 
 
 
 @NgModule({
-  declarations: [SessionListComponent, SessionDetailComponent],
+  declarations: [SessionListComponent, SessionDetailComponent, CreateSessionComponent, SessionFormComponent],
   imports: [
     CommonModule,
     SessionsRoutingModule,
@@ -24,11 +27,10 @@ import { MatInputModule } from '@angular/material/input';
     MatListModule,
     MatCardModule,
     RouterModule,
-    MatSidenavModule,
     MatButtonModule,
-    MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    FormsModule
   ]
 })
 export class SessionModule { }

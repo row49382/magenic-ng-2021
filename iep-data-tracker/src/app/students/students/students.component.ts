@@ -1,38 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Student } from '../model/student';
 import { StudentManagerService } from '../service/student-manager.service';
+import { SideNavContentService } from 'src/app/side-nav-content.service';
+import { Subscription, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css']
 })
-export class StudentsComponent implements OnInit {
+export class StudentsComponent implements OnInit, OnDestroy {
+  studentId: number;
+  students: Student[];
+  students$: Observable<Student[]>;
+  private subsriptions: Array<Subscription> = [];
+
   constructor(
-    private studentManager: StudentManagerService) { }
+    private studentManager: StudentManagerService,
+    private sideNavDisplay: SideNavContentService) { }
 
   ngOnInit(): void {
+    this.subsriptions.push(this.studentManager.students$.subscribe(data => this.onStudentsLoaded(data)))
+    this.subsriptions.push(this.students$.subscribe(x => this.students = x));
+
+    this.studentManager.getAll();
   }
 
-  getAllStudents(): Array<Student> {
-    return this.studentManager.getAll();
-  }
-
-  getAllStudentNames(): Array<string> {
-    console.log(this.studentManager.getAll());
-    return this.getAllStudents().map(x => x.firstName + ' ' + x.lastName);
-  }
-
-  getStudentIndex(wholename: string): number {
-    let names = wholename.split(' ');
-    let firstName = names[0];
-    let lastName = names[1];
-
-    return this.studentManager.getAll().findIndex(s => s.firstName === firstName && s.lastName === lastName);
+  ngOnDestroy(): void {
+    for (let sub of this.subsriptions) {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    }
   }
 
   getStudentIndexById(id: number) {
-    return this.studentManager.getAll().findIndex(s => s.id === id);
+    return this.students.findIndex(s => s.id === id);
+  }
+
+  onStudentsLoaded(data: Student[]) {
+    this.students$ = of(data);
   }
 
   deleteStudent(id: number) {

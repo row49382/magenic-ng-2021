@@ -1,53 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StudentManagerService } from '../service/student-manager.service';
 import { Student } from '../model/student';
 import { K12Grades } from '../model/k12grades';
-import { SideNavDisplayable } from 'src/app/sidenav-displayable';
 import { SideNavContentService } from 'src/app/side-nav-content.service';
+import { Subscription, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-student-detail',
   templateUrl: './student-detail.component.html',
   styleUrls: ['./student-detail.component.css']
 })
-export class StudentDetailComponent implements OnInit, SideNavDisplayable {
+export class StudentDetailComponent implements OnInit, OnDestroy {
   student: Student;
   K12Grades = K12Grades;
+
+  private students: Student[];
+  private students$: Observable<Student[]>;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private studentManager: StudentManagerService,
     private route: ActivatedRoute,
     private sideNavDisplay: SideNavContentService) { }
 
-  getTitle(): string {
-    return this.sideNavDisplay.title;
-  }
-
-  getChildren(): string[] {
-    return this.sideNavDisplay.children;
-  }
-
   ngOnInit(): void {
-    this.sideNavDisplay.title = 'Students',
-    this.sideNavDisplay.children = this.studentManager.getAll().map(x => x.firstName + ' ' + x.lastName);
+    this.subscriptions.push(this.studentManager.students$.subscribe(x => this.students$ = of(x)));
+    this.subscriptions.push(this.students$.subscribe(x => this.students = x));
 
-    this.route.params.subscribe(x => {
+    this.sideNavDisplay.getSideNav('Students', this.students.map(x => x.firstName + ' ' + x.lastName), 'student');
+
+    this.subscriptions.push(this.route.params.subscribe(x => {
+      debugger;
       let id = x['id'];
       if (id) {
-        this.student = this.studentManager.getAll()[id];
+        this.student = this.students[id];
       }
-    })
+    }));
+
+    this.studentManager.getAll();
   }
 
-  getGradeKeys(): Array<string> {
-    return Object.keys(this.K12Grades)
-      .sort()
-      .filter(x => !isNaN(Number(x)) || (x === 'Preschool' || x === 'Kindergarten'));
-  }
-
-  getStudentIndex(wholename: string) {
-    return this.studentManager.getStudentIndex(wholename);
+  ngOnDestroy(): void {
+    for (let sub of this.subscriptions) {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    }
   }
 
   save() {

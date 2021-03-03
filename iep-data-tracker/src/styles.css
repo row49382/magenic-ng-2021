@@ -2,8 +2,13 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 10; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.md-fab-bottom-right{
-  position: fixed !important;
+button:hover {
+  background-color: transparent;
+}
+
+footer {
+  background-color: #302D31;
+  color: white;
 }

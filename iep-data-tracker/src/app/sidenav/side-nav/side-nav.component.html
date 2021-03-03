@@ -1,0 +1,12 @@
+<br />
+<div *ngIf="(sideNav$ | async) as sideNav; else loading">
+<h2>{{sideNav.title}}</h2>
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let child of sideNav.children">
+    <a class="pointer" [routerLink]="['/' + sideNav.page, getIndex(child)]">
+      {{child}}
+    </a>
+  </mat-list-item>
+</mat-list>
+</div>
+<ng-template #loading>loading...</ng-template>
